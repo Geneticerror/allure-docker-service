@@ -21,7 +21,7 @@ services:
       SECURITY_PASS: "my_password"
       SECURITY_VIEWER_USER: "view_user"
       SECURITY_VIEWER_PASS: "view_pass"
-      SECURITY_ENABLED: 1
+      SECURITY_ENABLED: 0
       MAKE_VIEWER_ENDPOINTS_PUBLIC: 0
       OPTIMIZE_STORAGE: 0
       API_RESPONSE_LESS_VERBOSE: 0
@@ -29,7 +29,8 @@ services:
     ports:
       - "${ALLURE_DOCKER_SERVICE_API_PORT}:5050"
     volumes:
-      - ./.data/allure-docker-service/allure-results:/app/allure-results
+      - ${PWD}/allure-results:/app/allure-results
+      - ${PWD}/allure-reports:/app/default-reports
 
   allure-ui:
     image: "frankescobar/allure-docker-service-ui"

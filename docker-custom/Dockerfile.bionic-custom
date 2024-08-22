@@ -58,6 +58,7 @@ RUN apt-get update && \
       nano \
       python${PYTHON_VERSION} \
       python3-pip \
+      curl \
       unzip && \
     ln -s `which python3` /usr/bin/python && \
     pip3 install --upgrade pip && \
@@ -100,6 +101,9 @@ RUN echo -n $(allure --version) > ${ALLURE_VERSION} && \
     ln -s $ALLURE_HOME/* $ALLURE_HOME_SL && \
     ln -s $STATIC_CONTENT_PROJECTS $ROOT/projects && \
     ln -s $DEFAULT_PROJECT_REPORTS $ROOT/default-reports
+
+COPY swagger-coverage-commandline-1.5.0 $ROOT_DIR/swagger-coverage-commandline
+ENV PATH=$PATH:/swagger-coverage-commandline/bin
 
 WORKDIR $ROOT
 COPY --chown=allure:allure allure-docker-api $ROOT/allure-docker-api

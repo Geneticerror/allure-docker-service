@@ -27,6 +27,10 @@
          "description":""
       },
       {
+         "name":"Coverage",
+         "description":""
+      },
+      {
          "name":"Project",
          "description":""
       }
@@ -684,6 +688,185 @@
             ],
             "produces":[
                "application/json"
+            ],
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               },
+               "400":{
+                  "description":"BAD_REQUEST",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               },
+               "404":{
+                  "description":"NOT_FOUND",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               }
+            }
+         }
+      },
+      "/send-coverage-results":{
+         "post":{
+            "tags":[
+               "Coverage"
+            ],
+            "summary":"Send results files (from version 2.12.1)",
+            "consumes":[
+               "application/json",
+               "multipart/form-data"
+            ],
+            "parameters":[
+               {
+                  "in":"query",
+                  "name":"project_id",
+                  "schema":{
+                     "type":"string"
+                  }
+               },
+               {
+                  "in":"query",
+                  "name":"force_project_creation",
+                  "schema":{
+                     "type":"string"
+                  },
+                  "value": "false"
+               }
+            ],
+            "requestBody":{
+               "description":"Files to send",
+               "required":"true",
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/results"
+                     },
+                     "example":{
+                        "results":[
+                           {
+                              "file_name":"example1",
+                              "content_base64":"Y29udGVudCBleGFtcGxlMQ=="
+                           },
+                           {
+                              "file_name":"example2",
+                              "content_base64":"Y29udGVudCBleGFtcGxlMg=="
+                           },
+                           {
+                              "file_name":"example3",
+                              "content_base64":"Y29udGVudCBleGFtcGxlMw=="
+                           }
+                        ]
+                     }
+                  },
+                  "multipart/form-data":{
+                     "schema":{
+                        "$ref":"#/components/schemas/files"
+                     }
+                  }
+               }
+            },
+            "produces":[
+               "application/json"
+            ],
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               },
+               "400":{
+                  "description":"BAD_REQUEST",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               },
+               "404":{
+                  "description":"NOT_FOUND",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               }
+            }
+         }
+      },
+      "/generate-coverage-report":{
+         "get":{
+            "tags":[
+               "Coverage"
+            ],
+            "summary":"Generate new report",
+            "parameters":[
+               {
+                  "in":"query",
+                  "name":"project_id",
+                  "schema":{
+                     "type":"string"
+                  }
+               },
+               {
+                  "in":"query",
+                  "name":"execution_name",
+                  "schema":{
+                     "type":"string"
+                  }
+               },
+               {
+                  "in":"query",
+                  "name":"execution_from",
+                  "schema":{
+                     "type":"string"
+                  }
+               },
+               {
+                  "in":"query",
+                  "name":"execution_type",
+                  "schema":{
+                     "type":"string"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               },
+               "400":{
+                  "description":"BAD_REQUEST",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               },
+               "404":{
+                  "description":"NOT_FOUND",
+                  "schema":{
+                     "$ref":"#/components/schemas/response"
+                  }
+               }
+            }
+         }
+      },
+      "/clean-coverage-results":{
+         "get":{
+            "tags":[
+               "Coverage"
+            ],
+            "summary":"Clean Coverage results",
+            "parameters":[
+               {
+                  "in":"query",
+                  "name":"project_id",
+                  "schema":{
+                     "type":"string"
+                  }
+               }
             ],
             "responses":{
                "200":{
